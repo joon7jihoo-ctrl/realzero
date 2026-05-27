@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --eco-bg: #0b1914;
+    --eco-card: #1a3029;
+    --eco-border: #2c4a3e;
+    --eco-text: #f4f6f0;
+    --eco-lime: #ccff00;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background-color: #0b1914;
+    color: #f4f6f0;
+    font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 스크롤바 스타일 */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0b1914;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2c4a3e;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ccff00;
+  }
+
+  /* 선택 영역 */
+  ::selection {
+    background-color: rgba(204, 255, 0, 0.25);
+    color: #f4f6f0;
+  }
+}
+
+@layer components {
+  /* 네온 라임 글로우 효과 */
+  .lime-glow {
+    text-shadow: 0 0 20px rgba(204, 255, 0, 0.6), 0 0 40px rgba(204, 255, 0, 0.3);
+  }
+
+  /* 버튼 기본 */
+  .btn-lime {
+    @apply bg-[#CCFF00] text-[#0B1914] font-black border-2 border-black
+           transition-all duration-150 active:scale-95
+           hover:shadow-[4px_4px_0px_#000000];
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-[#CCFF00] border-2 border-[#CCFF00] font-bold
+           transition-all duration-150 active:scale-95
+           hover:bg-[#CCFF00] hover:text-[#0B1914];
+  }
+
+  /* Y2K 카드 */
+  .y2k-card {
+    @apply bg-[#1A3029] border-2 border-[#2C4A3E] rounded-none
+           transition-all duration-200
+           hover:border-[#CCFF00] hover:shadow-[4px_4px_0px_#CCFF00];
+  }
+
+  /* 태그 */
+  .eco-tag {
+    @apply text-[10px] font-black uppercase tracking-widest
+           bg-[#CCFF00] text-[#0B1914]
+           px-2 py-0.5 border border-black;
+  }
+
+  /* 인풋 */
+  .eco-input {
+    @apply w-full bg-[#0B1914] text-[#F4F6F0]
+           border-2 border-[#2C4A3E]
+           px-3 py-2.5 text-sm font-medium
+           placeholder:text-[#3A5A4A]
+           focus:outline-none focus:border-[#CCFF00] focus:ring-0
+           transition-colors duration-150;
+  }
+
+  /* 선택 박스 */
+  .eco-select {
+    @apply w-full bg-[#0B1914] text-[#F4F6F0]
+           border-2 border-[#2C4A3E]
+           px-3 py-2.5 text-sm font-medium
+           focus:outline-none focus:border-[#CCFF00]
+           transition-colors duration-150
+           appearance-none cursor-pointer;
+  }
+}
