@@ -1,34 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { FeedItem } from "@/types";
 import FeedCard from "./FeedCard";
 
 interface FeedListProps {
-  initialItems: FeedItem[];
+  items: FeedItem[];
+  onCheer: (id: string) => void;
 }
 
 // ─────────────────────────────────────────────
 //  FeedList — 피드 카드 목록 컨테이너
-//  클라이언트 사이드 응원 상태 관리
+//  상태는 page.tsx에서 단일 관리 (props로 수신)
 // ─────────────────────────────────────────────
 
-export default function FeedList({ initialItems }: FeedListProps) {
-  const [items, setItems] = useState<FeedItem[]>(initialItems);
-
-  /** 응원하기 핸들러 — cheerCount++ & cheered 플래그 토글 */
-  const handleCheer = (id: string) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, cheered: true, cheerCount: item.cheerCount + 1 }
-          : item
-      )
-    );
-    // TODO: Supabase RPC 호출로 교체
-    // await supabase.rpc('increment_cheer', { item_id: id })
-  };
-
+export default function FeedList({ items, onCheer }: FeedListProps) {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-8">
@@ -55,7 +40,7 @@ export default function FeedList({ initialItems }: FeedListProps) {
       {/* 카드 리스트 */}
       <div className="flex flex-col gap-3 px-4 pb-28">
         {items.map((item) => (
-          <FeedCard key={item.id} item={item} onCheer={handleCheer} />
+          <FeedCard key={item.id} item={item} onCheer={onCheer} />
         ))}
 
         {/* 더보기 힌트 */}

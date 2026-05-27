@@ -16,6 +16,18 @@ export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [feedItems, setFeedItems] = useState<FeedItem[]>(MOCK_FEED);
 
+  /** 응원하기 핸들러 — page 레벨에서 단일 상태 관리 */
+  const handleCheer = (id: string) => {
+    setFeedItems((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, cheered: true, cheerCount: item.cheerCount + 1 }
+          : item
+      )
+    );
+    // TODO: await supabase.rpc('increment_cheer', { item_id: id })
+  };
+
   /** 인증 업로드 핸들러 (Mock) */
   const handleUploadSubmit = (data: UploadFormData) => {
     const newItem: FeedItem = {
@@ -91,7 +103,7 @@ export default function HomePage() {
         <CategoryFilter />
 
         {/* ── 피드 리스트 ── */}
-        <FeedList initialItems={feedItems} />
+        <FeedList items={feedItems} onCheer={handleCheer} />
       </main>
 
       {/* ── 플로팅 업로드 버튼 ── */}
